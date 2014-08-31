@@ -28,6 +28,10 @@ class Mysql(base.Database):
         'squeeze': '5.1',
         'lucid': '5.1',
         'maverick': '5.1',
+        'precise': '5.1',
+        'quantal': '5.1',
+        'trusty': '5.1',
+        'wheezy': '5.1',
     }
 
     def _get_version(self):
