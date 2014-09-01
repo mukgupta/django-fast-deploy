@@ -28,7 +28,11 @@ class Postgres(base.Database):
     @utils.run_as_sudo
     def install(self):
         """ Installs postgresql. """
-        packages = 'postgresql-server-dev-8.4 postgresql-8.4'
+        os = utils.detect_os()
+        if os == "trusty":
+            packages = 'postgresql-server-dev-9.3 postgresql-9.3'
+        else:
+            packages = 'postgresql-server-dev-8.4 postgresql-8.4'
         system.aptitude_install(packages)
 
     @task_method

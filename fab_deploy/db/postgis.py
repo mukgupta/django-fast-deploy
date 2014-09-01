@@ -42,6 +42,13 @@ then
     GEOGRAPHY=1
 fi
 
+# For Ubuntu 14.04
+if [ -d "/usr/share/postgresql/9.3/contrib/postgis-2.1" ]
+then
+    POSTGIS_SQL_PATH=/usr/share/postgresql/9.3/contrib/postgis-2.1
+    GEOGRAPHY=1
+fi
+
 createdb -E UTF8 template_postgis && \
 ( createlang -d template_postgis -l | grep plpgsql || createlang -d template_postgis plpgsql ) && \
 psql -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" && \
@@ -64,7 +71,11 @@ class PostGis(Postgres):
     @utils.run_as_sudo
     def install(self):
         """ Installs PostgreSQL + postgis. """
-        packages = 'gdal-bin postgresql-8.4-postgis postgresql-server-dev-8.4'
+        os = utils.detect_os()
+        if os == "trusty":
+            packages = 'gdal-bin postgresql-9.3 postgresql-9.3-postgis-2.1 postgresql-server-dev-9.3'
+        else:
+            packages = 'gdal-bin postgresql-8.4-postgis postgresql-server-dev-8.4'
         system.aptitude_install(packages)
 
     @utils.run_as_sudo

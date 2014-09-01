@@ -67,6 +67,10 @@ class Mysql(base.Database):
             'squeeze': ['libmysqlclient-dev'],
             'maverick': ['libmysqlclient-dev'],
             'lucid': ['libmysqlclient-dev'],
+            'precise': ['libmysqlclient-dev'],
+            'quantal': ['libmysqlclient-dev'],
+            'trusty': ['libmysqlclient-dev'],
+            'wheezy': ['libmysqlclient-dev'],
         }
         os = utils.detect_os()
         if os not in extra_packages:
